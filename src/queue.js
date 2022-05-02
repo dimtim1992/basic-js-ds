@@ -1,6 +1,6 @@
 const { NotImplementedError } = require('../extensions/index.js');
 
-// const { ListNode } = require('../extensions/list-node.js');
+const { ListNode } = require('../extensions/list-node.js');
 
 /**
  * Implement the Queue with a given interface via linked list (use ListNode extension above).
@@ -14,21 +14,80 @@ const { NotImplementedError } = require('../extensions/index.js');
  * queue.getUnderlyingList() // returns { value: 3, next: null }
  */
 class Queue {
-
-  getUnderlyingList() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor() {
+    this.head = null;
+    this.length = 0;
   }
 
-  enqueue(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  getUnderlyingList() {
+    return this.head;
+    // let current = this.head;
+    // let prev;
+
+    // while (current.next) {
+    //   prev = current;
+    //   current = current.next
+    // }
+
+    // return current;
+  }
+
+  enqueue(value) {
+    const node = new ListNode(value);
+
+    if(this.length === 0) {
+      this.head = node;
+      this.length++;
+    } else {
+      node.next = this.head;
+      this.head = node;
+      this.length++;
+      // let current = this.head;
+      // let prev;
+
+      // while (current.next) {
+      //   prev = current;
+      //   current = current.next
+      // }
+      // current.next = node;
+      // this.length++;
+    }  
   }
 
   dequeue() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    let current = this.head;
+    let prev;
+
+    while (current.next) {
+      prev = current;
+      current = current.next
+    }
+
+    if(prev === null) {
+      if(current === null) {
+        return null;
+      } else {
+        this.head = null;
+        return this.head;
+      }
+    }
+
+    prev.next = null;
+    this.length--;
+    return current.value;
   }
+  // if(this.length === 0) {
+  //   return null
+  // } else if(this.length === 1) {
+  //   this.length--;
+  //   this.head = null;
+  //   return this.head;
+  // } else {
+  //   let current = this.head;
+  //   this.head = this.head.next;
+  //   this.length--;
+  //   return current.value;
+  // }
 }
 
 module.exports = {
